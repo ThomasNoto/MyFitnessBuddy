@@ -10,6 +10,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class USDAFoodAPI {
+
+    // TODO: incorporate with spring boot?
     
     public static JSONObject searchFood(String foodName, String apiKey) throws Exception {
 

@@ -44,8 +44,8 @@ public class User {
         //Logs a completed workout session.
     }
 
-    // not sure why these were returning new data structures. Keeping as legacy for now --Thomas
-
+    // not sure why these return a new data structure but keeping here for legacy purposes
+    
     // public List<FoodItem> getHistoricalCalories(String startDate, String endDate) {
     //     //Retrieves user calorie intake history for a given time range.
     //     return new ArrayList<>();
@@ -56,6 +56,77 @@ public class User {
     //     return new ArrayList<>();
     // }
 
-    // TODO: add getters / setters
-    
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public String getFitnessGoals() {
+        return fitnessGoals;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public List<FoodItem> getHistoricalFood() {
+        return historicalFood;
+    }
+
+    public List<Exercise> getHistoricalExercises() {
+        return historicalExercises;
+    }
+
+    // not sure why these were returning new data structures. Keeping as legacy for now --Thomas
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setFitnessGoals(String fitnessGoals) {
+        this.fitnessGoals = fitnessGoals;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setHistoricalFood(List<FoodItem> historicalFood) {
+        this.historicalFood = historicalFood;
+    }
+
+    public void setHistoricalExercises(List<Exercise> historicalExercises) {
+        this.historicalExercises = historicalExercises;
+    }
 }
