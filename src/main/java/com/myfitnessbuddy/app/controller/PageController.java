@@ -37,7 +37,7 @@ public class PageController {
         return "redirect:/home";
     }
 
-    //After login success → show dashboard/home
+    //After login success → show dashboard/home 
     @GetMapping("/home")
     public String showHomePage(HttpSession session, Model model) {
         Long userId = (Long) session.getAttribute("userId");

@@ -1,5 +1,6 @@
 package com.myfitnessbuddy.app.controller;
 
+import com.myfitnessbuddy.app.dto.FoodItemDTO;
 import com.myfitnessbuddy.app.entity.FoodItem;
 import com.myfitnessbuddy.app.service.FoodItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/fooditems")
@@ -15,21 +17,23 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-        // CREATE (Combined - creates from request body or fetches from USDA API)
-        @PostMapping
-        public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
-            FoodItem createdFoodItem;
-            if (foodItem.getFoodName() != null && !foodItem.getFoodName().isEmpty()) {
-                createdFoodItem = foodItemService.loadFoodItemFromUSDA(foodItem.getFoodName());
-                if (createdFoodItem == null) {
-                    createdFoodItem = foodItemService.createFoodItem(foodItem);
-                }
-            } else {
-                // If no name, return bad request response
-                return ResponseEntity.badRequest().body(null);
-            }
-            return ResponseEntity.status(201).body(createdFoodItem);
-        }
+   @PostMapping("/usda")
+    public ResponseEntity<FoodItem> createFoodItemFromUSDA(@RequestBody FoodItemDTO dto) {
+        FoodItem createdFoodItem = foodItemService.createFoodItemFromUSDA(
+            dto.foodName,
+            dto.userId,
+            dto.servingSize,
+            dto.date
+        );
+
+        return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<FoodItem> createFoodItem(@RequestBody FoodItem foodItem) {
+        FoodItem createdFoodItem = foodItemService.createFoodItem(foodItem);
+        return (createdFoodItem != null) ? ResponseEntity.ok(createdFoodItem) : ResponseEntity.badRequest().build();
+    }
 
     // READ
     // get food item by id

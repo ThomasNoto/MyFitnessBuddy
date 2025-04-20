@@ -1,11 +1,13 @@
 package com.myfitnessbuddy.app.controller;
 
+import com.myfitnessbuddy.app.dto.ExerciseDTO;
 import com.myfitnessbuddy.app.entity.Exercise;
 import com.myfitnessbuddy.app.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -14,10 +16,29 @@ public class ExerciseController {
     @Autowired
     private ExerciseService exerciseService;
     // CREATE
-    @PostMapping
+    @PostMapping("raw")
     public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
         Exercise createdExercise = exerciseService.createExercise(exercise);
         return ResponseEntity.status(201).body(createdExercise);
+    }
+
+    @PostMapping
+    public ResponseEntity<Exercise> createExerciseFromForm(@RequestBody ExerciseDTO dto) {
+        Exercise createdExercise = exerciseService.createExerciseFromFrontend(
+            dto.userId,
+            dto.metIndex,
+            dto.exerciseName,
+            dto.muscleGroupsWorked,
+            dto.sets,
+            dto.reps,
+            dto.weight,
+            dto.durationMinutes,
+            dto.date
+        );
+
+        return (createdExercise != null)
+            ? ResponseEntity.ok(createdExercise)
+            : ResponseEntity.badRequest().build();
     }
 
     // READ
