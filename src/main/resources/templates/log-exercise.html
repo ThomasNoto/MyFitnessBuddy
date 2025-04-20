@@ -1,166 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Log Exercise - Fitness Tracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>Log Exercise - Fitness Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            padding: 20px;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
 
-        header h1 {
-            font-size: 24px;
-        }
+    header h1 {
+      font-size: 24px;
+    }
 
-        .exercise-form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
+    .exercise-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
 
-        .exercise-form label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            font-size: 16px;
-        }
+    .exercise-form label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-        .exercise-form input,
-        .exercise-form select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 8px;
-        }
+    .exercise-form input,
+    .exercise-form select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 8px;
+    }
 
-        .exercise-form button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #333333;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
+    .exercise-form button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #333333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
 
-        .exercise-form button:hover {
-            background-color: #f39c12;
-        }
+    .exercise-form button:hover {
+      background-color: #f39c12;
+    }
 
-        .recent-exercises {
-            background-color: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        }
+    #recentExercises {
+      margin-top: 30px;
+    }
 
-        .recent-exercises h2 {
-            margin-bottom: 20px;
-            font-size: 22px;
-            color: #0072ff;
-        }
+    #recentExercises h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
 
-        .exercise-entry {
-            border-bottom: 1px solid #eee;
-            padding: 12px 0;
-        }
-
-        .exercise-entry:last-child {
-            border-bottom: none;
-        }
-
-        .exercise-entry h3 {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .exercise-entry p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        @media (max-width: 600px) {
-            .exercise-form, .recent-exercises {
-                padding: 15px;
-            }
-
-            header h1 {
-                font-size: 20px;
-            }
-        }
-    </style>
+    #exerciseList li {
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Log Exercise</h1>
-    </header>
+  <header>
+    <h1>Log Exercise</h1>
+  </header>
 
-    <div class="exercise-form">
-        <form method="post" action="/log-exercise">
-            <label for="exercise-type">Exercise Type:</label>
-            <input type="text" id="exercise-type" name="exerciseType" placeholder="e.g., Running" required />
+  <div class="exercise-form">
+    <form id="exerciseForm">
+      <label for="userId">User ID:</label>
+      <input type="number" id="userId" name="userId" required>
 
-            <label for="duration">Duration (minutes):</label>
-            <input type="number" id="duration" name="duration" placeholder="e.g., 30" required />
+      <label for="exerciseName">Exercise Name:</label>
+      <input type="text" id="exerciseName" name="exerciseName" placeholder="e.g., Running" required>
 
-            <label for="intensity">Intensity:</label>
-            <select id="intensity" name="intensity" required>
-                <option value="">Select intensity</option>
-                <option value="Low">Low</option>
-                <option value="Moderate">Moderate</option>
-                <option value="High">High</option>
-            </select>
+      <label for="metIndex">MET Index (0-4):</label>
+      <select id="metIndex" name="metIndex" required>
+        <option value="">Select MET Index</option>
+        <option value="0">Calisthenics</option>
+        <option value="1">Weight Training</option>
+        <option value="2">Biking</option>
+        <option value="3">Running</option>
+        <option value="4">Walking</option>
+      </select>
 
-            <label for="calories">Calories Burned:</label>
-            <input type="number" id="calories" name="calories" placeholder="e.g., 300" required />
+      <label for="muscleGroupsWorked">Muscle Groups Worked (comma-separated):</label>
+      <input type="text" id="muscleGroupsWorked" name="muscleGroupsWorked" placeholder="e.g., Legs, Core">
 
-            <button type="submit">Log Exercise</button>
-        </form>
-    </div>
+      <label for="sets">Sets:</label>
+      <input type="number" id="sets" name="sets" required>
 
-    <div class="recent-exercises">
-        <h2>Recent Exercises</h2>
-        <div class="exercise-entry">
-            <h3>Running</h3>
-            <p>Duration: 30 min | Intensity: High | Calories Burned: 350 kcal</p>
-        </div>
-        <div class="exercise-entry">
-            <h3>Yoga</h3>
-            <p>Duration: 45 min | Intensity: Low | Calories Burned: 180 kcal</p>
-        </div>
-        <div class="exercise-entry">
-            <h3>Cycling</h3>
-            <p>Duration: 60 min | Intensity: Moderate | Calories Burned: 450 kcal</p>
-        </div>
-    </div>
+      <label for="reps">Reps:</label>
+      <input type="number" id="reps" name="reps" required>
 
+      <label for="weight">Weight (lbs):</label>
+      <input type="number" id="weight" name="weight" required>
+
+      <label for="durationMinutes">Duration (minutes):</label>
+      <input type="number" id="durationMinutes" name="durationMinutes" required>
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required>
+
+      <button type="submit">Log Exercise</button>
+    </form>
+  </div>
+
+  <div id="recentExercises">
+    <h2>Recent Exercises</h2>
+    <ul id="exerciseList"></ul>
+  </div>
+
+  <script>
+    async function fetchAndDisplayExercises(userId) {
+      const exerciseList = document.getElementById('exerciseList');
+      exerciseList.innerHTML = ''; // Clear old entries
+
+      if (!userId || isNaN(userId)) {
+        exerciseList.innerHTML = '<li>Please enter a valid user ID to view exercises.</li>';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/exercises/user/${userId}`);
+        if (!response.ok) throw new Error('Failed to fetch exercises');
+
+        const exercises = await response.json();
+        if (exercises.length === 0) {
+          exerciseList.innerHTML = '<li>No exercises logged yet.</li>';
+          return;
+        }
+
+        for (const ex of exercises) {
+          const item = document.createElement('li');
+          item.innerHTML = `
+            <strong>${ex.exerciseName}</strong> — ${ex.sets} sets of ${ex.reps} reps at ${ex.weight} lbs<br/>
+            <small>Duration: ${ex.durationMinutes} min | MET Index: ${ex.metIndex} | Date: ${ex.date}</small><br/>
+            <em>Muscle Groups: ${ex.muscleGroupsWorked?.join(', ') || 'N/A'}</em>
+          `;
+          exerciseList.appendChild(item);
+        }
+
+      } catch (err) {
+        console.error(err);
+        exerciseList.innerHTML = '<li>Error loading exercises.</li>';
+      }
+    }
+
+    document.getElementById('exerciseForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const userId = parseInt(document.getElementById('userId').value);
+      const dto = {
+        userId: userId,
+        exerciseName: document.getElementById('exerciseName').value,
+        metIndex: parseInt(document.getElementById('metIndex').value),
+        muscleGroupsWorked: document.getElementById('muscleGroupsWorked').value
+          .split(',')
+          .map(s => s.trim())
+          .filter(s => s.length > 0),
+        sets: parseInt(document.getElementById('sets').value),
+        reps: parseInt(document.getElementById('reps').value),
+        weight: parseFloat(document.getElementById('weight').value),
+        durationMinutes: parseFloat(document.getElementById('durationMinutes').value),
+        date: document.getElementById('date').value
+      };
+
+      try {
+        const response = await fetch('/exercises', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dto)
+        });
+
+        if (response.ok) {
+          alert('Exercise logged successfully!');
+          document.getElementById('exerciseForm').reset();
+          fetchAndDisplayExercises(userId); // Refresh exercise list
+        } else {
+          alert('Failed to log exercise. Check the input and try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while logging the exercise.');
+      }
+    });
+
+    //fetch exercises when user ID is filled and page loads
+    window.addEventListener('load', () => {
+      const userIdInput = document.getElementById('userId');
+
+
+      if (userIdInput.value) {
+        fetchAndDisplayExercises(parseInt(userIdInput.value));
+      }
+
+      userIdInput.addEventListener('change', () => {
+        const userId = parseInt(userIdInput.value);
+        if (!isNaN(userId)) {
+          fetchAndDisplayExercises(userId);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
