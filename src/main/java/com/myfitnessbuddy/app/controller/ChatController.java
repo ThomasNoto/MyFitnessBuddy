@@ -26,14 +26,14 @@ public class ChatController {
         this.geminiService = geminiService;
     }
 
-    @PostMapping("/chat/send")
+    @PostMapping("ai/chat/send")
     public Mono<ResponseEntity<Map<String, String>>> sendMessage(
             @RequestParam String sessionId,
             @RequestBody Map<String, String> payload,
             HttpSession session) {
-            System.out.println("SESSIONID: " + sessionId);
-            Long userId = (long) 3;
-            System.out.println("USERD ID: " + userId);
+            //System.out.println("SESSIONID: " + sessionId);
+            Long userId = (Long) session.getAttribute("userId");
+            //System.out.println("USERD ID: " + userId);
         String userMessage = payload.get("message");
         if (userMessage != null && !userMessage.trim().isEmpty()) {
             return geminiService.sendMessage(sessionId, userMessage, userId)
@@ -43,7 +43,7 @@ public class ChatController {
         }
     }
 
-    @PostMapping("/api/chat/clear-history")
+    @PostMapping("/ai/chat/clear-history")
     public ResponseEntity<Map<String, String>> clearChatHistory(@RequestParam String sessionId) {
         geminiService.clearHistory(sessionId);
         return ResponseEntity.ok(Map.of("message", "Chat history cleared."));

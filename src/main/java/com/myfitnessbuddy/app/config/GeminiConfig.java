@@ -16,7 +16,6 @@ public class GeminiConfig {
         geminiApiKey = dotenv.get("GEMINI_API_KEY");
         if (geminiApiKey == null) {
             System.err.println("Warning: GEMINI_API_KEY not found in .env file or environment variables.");
-            // You might want to throw an exception or handle this more gracefully
         }
     }
 
