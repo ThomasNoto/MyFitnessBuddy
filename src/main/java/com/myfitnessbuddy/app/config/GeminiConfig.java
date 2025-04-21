@@ -20,10 +20,9 @@ public class GeminiConfig {
     }
 
     @Bean
-    public WebClient geminiWebClient(WebClient.Builder builder) {
-        return builder
-                .baseUrl("https://generativelanguage.googleapis.com/v1beta")
-                .defaultUriVariables(java.util.Collections.singletonMap("key", geminiApiKey))
+    public WebClient geminiWebClient() {
+        return WebClient.builder()
+                .baseUrl("https://generativelanguage.googleapis.com/v1beta/") // <-- Correct Base URL
                 .build();
     }
 }
