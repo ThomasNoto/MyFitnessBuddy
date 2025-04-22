@@ -12,20 +12,19 @@ MyFitnessBuddy is a fitness calorie tracker that leverages AI to provide persona
 - **Integration with Food Databases:** Access real-time nutritional data.
 
 ## Installation
-// is this needed??
+- Maven
 
 ## Usage
 1. Register/Login to create a personalized profile.
 2. Log your daily food intake to track calorie consumption.
 3. Record workouts to monitor progress.
 4. Utilize AI-powered recommendations for nutrition and workouts.
-5. Review historical data to adjust your fitness plan accordingly.
 
 ## Tech Stack
-- **Frontend:** React (or another chosen framework)
-- **Backend:** Node.js / Python (Django, Flask, or Express.js)
-- **Database:** PostgreSQL / MongoDB
-- **AI Engine:** TensorFlow / OpenAI API
+- **Frontend:** HTML, CSS, JS
+- **Backend:** Spring Boot
+- **Database:** H2 (file-based persistence)
+- **AI Engine:** Gemini API for AI chatbot and USDA Food API for food data
 
 ## Requirements
 - Internet connection for real-time nutritional data retrieval.
